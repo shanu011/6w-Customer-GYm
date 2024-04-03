@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.userside.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/exerciseLevelFragment"
+        android:name="com.example.userside.ExerciseLevelFragment"
+        android:label="fragment_exercise_level"
+        tools:layout="@layout/fragment_exercise_level" />
+    <fragment
+        android:id="@+id/allExerciseFragment"
+        android:name="com.example.userside.DayWiseExerciseFragment"
+        android:label="fragment_all_exercise"
+        tools:layout="@layout/fragment_day_wise_exercise" />
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.userside.ExerciseFragment"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/exerciseDetailFragment"
+        android:name="com.example.userside.ExerciseDetailFragment"
+        android:label="fragment_exercise_detail"
+        tools:layout="@layout/fragment_exercise_detail" />
+    <fragment
+        android:id="@+id/favoruiteFragment"
+        android:name="com.example.userside.FavoruiteFragment"
+        android:label="fragment_favoruite"
+        tools:layout="@layout/fragment_favoruite" />
+</navigation>

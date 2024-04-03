@@ -1,0 +1,53 @@
+package com.example.userside
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
+class ExerciseAdapter(var context: Context,
+                      private val categoryList: ArrayList<ExerciseModel>,
+                      var clickInterface: ClickInterface
+
+) :
+    RecyclerView.Adapter<ExerciseAdapter.MyViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.exercise_item,parent,false)
+        return MyViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val currentitem = categoryList[position]
+        holder.tvExerciseName.text = currentitem.exerciseName
+        holder.tvDescription.text = currentitem.exerciseDescription
+        var firstImage = currentitem.imageList?.get(0)
+        Glide.with(context)
+            .load(firstImage).placeholder(R.mipmap.ic_launcher)
+            .error(R.mipmap.ic_launcher)
+            .into(holder.ivExerciseImage)
+
+        holder.itemView.setOnClickListener {
+            clickInterface.onExerciseViewClick(currentitem)
+        }
+        holder.ivLike.setOnClickListener {
+            clickInterface.onLikeClick(currentitem)
+
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return categoryList.size
+    }
+    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+        val tvExerciseName : TextView = itemView.findViewById(R.id.tvExerciseName)
+        val tvDescription : TextView = itemView.findViewById(R.id.tvDescription)
+        val ivExerciseImage : ImageView = itemView.findViewById(R.id.image)
+        val ivLike : ImageView = itemView.findViewById(R.id.ivLike)
+
+
+    }
+}

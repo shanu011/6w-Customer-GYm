@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Cutomer Gym</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bignnner">Beginners</string>
+    <string name="intermidiate">Intermidiate</string>
+    <string name="adavnced">Advanced</string>
+    <string name="choose_level">Choose the Level?</string>
+    <string name="exercise_name">Exercise Name: </string>
+    <string name="exercise_description">Exercise Description: </string>
+    <string name="home">Home</string>
+    <string name="favourite">Favourite</string>
+    <string name="login">Login</string>
+    <string name="enter_email">Enter Your Email</string>
+    <string name="enter_password">Enter Your Password</string>
+</resources>
