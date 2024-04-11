@@ -60,8 +60,8 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
                             dayModel = snapshot.document.toObject(DayModel::class.java)
                             dayModel.id = snapshot.document.id
                             dayList.add(dayModel)
-                            dayList.sortBy { element-> element.id == snapshot.document.id }
-                            System.out.println("DayList: $dayList")
+                            dayList.sortBy { it.day }
+                            println("SortList: $dayList")
                             dayAdapter.notifyDataSetChanged()
 
                         }
@@ -70,13 +70,13 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
                             dayModel.id = snapshot.document.id
                             var index =  dayList.indexOfFirst { element-> element.id == snapshot.document.id }
                             dayList.set(index,dayModel)
-                            dayList.sortBy { element-> element.id == snapshot.document.id }
+                            dayList.sortBy { it.day }
                             dayAdapter.notifyDataSetChanged()
                         }
                         DocumentChange.Type.REMOVED->{
                             dayModel = snapshot.document.toObject(DayModel::class.java)
                             dayList.remove(dayModel)
-                            dayList.sortBy { element-> element.id == snapshot.document.id }
+                            dayList.sortBy { it.day }
                             dayAdapter.notifyDataSetChanged()
                         }
                     }
