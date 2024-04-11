@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.homeFragment->{navController.navigate(R.id.exerciseLevelFragment)}
+                R.id.homeFragment->{navController.navigate(R.id.categoryFragment)}
                     R.id.favouriteFragment->{navController.navigate(R.id.favoruiteFragment)}
             }
             return@setOnItemSelectedListener true
@@ -34,6 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.toolBar.title = "GYM Exercise"
+        binding.toolBar.title = "Yoga"
     }
 }

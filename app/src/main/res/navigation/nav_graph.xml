@@ -35,4 +35,9 @@
         android:name="com.example.userside.FavoruiteFragment"
         android:label="fragment_favoruite"
         tools:layout="@layout/fragment_favoruite" />
+    <fragment
+        android:id="@+id/level1Fragment"
+        android:name="com.example.userside.level1Fragment"
+        android:label="fragment_level1"
+        tools:layout="@layout/fragment_level1" />
 </navigation>
