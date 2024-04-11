@@ -1,10 +1,12 @@
 package com.example.userside
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
@@ -30,29 +32,20 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
     var dayList = ArrayList<DayModel>()
     private var difficultyLevel: Int = 1
     private var weightLossORGain: Int = 1
+    var i = 0
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
         arguments?.let {
-            difficultyLevel = it.getInt("level", 1) ?: 1
+            difficultyLevel = arguments?.getInt("difficulitylevel", 1) ?: 1
             weightLossORGain = it.getInt("weightLossOrGain",1)
             println("Check the Level: $difficultyLevel ")
             println("weightLossORGain $weightLossORGain ")
         }
+       // dayList.clear()
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentDayWiseExerciseBinding.inflate(layoutInflater)
         db.collection("day").whereEqualTo("difficultyLevel",difficultyLevel)
             .addSnapshotListener { value, error ->
                 println("SnapshotListener")
@@ -67,6 +60,7 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
                             dayModel = snapshot.document.toObject(DayModel::class.java)
                             dayModel.id = snapshot.document.id
                             dayList.add(dayModel)
+                            dayList.sortBy { element-> element.id == snapshot.document.id }
                             System.out.println("DayList: $dayList")
                             dayAdapter.notifyDataSetChanged()
 
@@ -76,21 +70,34 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
                             dayModel.id = snapshot.document.id
                             var index =  dayList.indexOfFirst { element-> element.id == snapshot.document.id }
                             dayList.set(index,dayModel)
+                            dayList.sortBy { element-> element.id == snapshot.document.id }
                             dayAdapter.notifyDataSetChanged()
                         }
                         DocumentChange.Type.REMOVED->{
                             dayModel = snapshot.document.toObject(DayModel::class.java)
                             dayList.remove(dayModel)
+                            dayList.sortBy { element-> element.id == snapshot.document.id }
                             dayAdapter.notifyDataSetChanged()
                         }
                     }
                 }
 
             }
-        dayAdapter = DayAdapter(dayList, this)
+
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentDayWiseExerciseBinding.inflate(layoutInflater)
+        dayAdapter = DayAdapter(dayList,this)
         binding.rvList.layoutManager = LinearLayoutManager(mainActivity)
         binding.rvList.adapter = dayAdapter
-        return binding.root
+
+        return  binding.root
     }
 
     companion object {

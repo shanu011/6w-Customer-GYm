@@ -13,4 +13,12 @@
     <string name="login">Login</string>
     <string name="enter_email">Enter Your Email</string>
     <string name="enter_password">Enter Your Password</string>
+    <string name="choose_focus">Choose Your Focus Area?</string>
+    <string name="fullbody">Full Body</string>
+    <string name="arm">Arms</string>
+    <string name="leg">Legs</string>
+    <string name="chest">Chest</string>
+
+
+
 </resources>

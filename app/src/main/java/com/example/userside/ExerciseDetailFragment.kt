@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.example.userside.databinding.FragmentExerciseDetailBinding
@@ -26,7 +27,7 @@ class ExerciseDetailFragment : Fragment() {
     var db = Firebase.firestore
     // TODO: Rename and change types of parameters
     var exerciseModel = ExerciseModel()
-    lateinit var imageAdapter : ImageAdapter
+
     var imageList = ArrayList<ExerciseModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,11 @@ class ExerciseDetailFragment : Fragment() {
         arguments?.let {
             exerciseModel = it.getSerializable("exerciseModel") as ExerciseModel
             println("Exercise id: $exerciseModel")
+
         }
+        Glide.with(requireContext())
+            .load(exerciseModel.image)
+            .into(binding.ivImage)
             binding.tvExerciseName.setText(exerciseModel.exerciseName)
             binding.tvExerciseDescription.setText(exerciseModel.exerciseDescription)
 
@@ -47,10 +52,6 @@ class ExerciseDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        imageAdapter = exerciseModel.imageList?.let { ImageAdapter(mainActivity, it) }!!
-        binding.rvList.layoutManager = LinearLayoutManager(mainActivity,
-            LinearLayoutManager.HORIZONTAL,false)
-        binding.rvList.adapter = imageAdapter
 
         return binding.root
     }

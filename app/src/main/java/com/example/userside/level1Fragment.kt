@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.userside.databinding.FragmentExerciseLevelBinding
+import androidx.navigation.fragment.findNavController
+import com.example.userside.databinding.FragmentLevel1Binding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -14,23 +15,21 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ExerciseLevelFragment.newInstance] factory method to
+ * Use the [level1Fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ExerciseLevelFragment : Fragment() {
-    lateinit var binding : FragmentExerciseLevelBinding
+class level1Fragment : Fragment() {
+    lateinit var binding : FragmentLevel1Binding
     lateinit var mainActivity: MainActivity
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var position : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
         arguments?.let {
-            position = it.getInt("position",1)
-            println("Position: $position")
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -38,32 +37,20 @@ class ExerciseLevelFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentExerciseLevelBinding.inflate(layoutInflater)
-        binding.btnBeginners.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putInt("level",1)
-            bundle.putInt("weightLossOrGain",position)
-            mainActivity.navController.navigate(R.id.level1Fragment,bundle)
+       binding = FragmentLevel1Binding.inflate(layoutInflater)
+        binding.btnfull.setOnClickListener{
+            findNavController().navigate(R.id.allExerciseFragment)
         }
-        binding.btnIntermidiate.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putInt("level",2)
-            bundle.putInt("weightLossOrGain",position)
-            mainActivity.navController.navigate(R.id.level1Fragment,bundle)
+        binding.btnarm.setOnClickListener{
+            findNavController().navigate(R.id.allExerciseFragment)
         }
-        binding.btnAdvance.setOnClickListener {
-            var bundle = Bundle()
-            bundle.putInt("level",3)
-            bundle.putInt("weightLossOrGain",position)
-            mainActivity.navController.navigate(R.id.level1Fragment,bundle)
+        binding.btnleg.setOnClickListener{
+            findNavController().navigate(R.id.allExerciseFragment)
+        }
+        binding.btnchest.setOnClickListener{
+            findNavController().navigate(R.id.allExerciseFragment)
         }
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mainActivity.binding.bottomNav.visibility = View.VISIBLE
     }
 
     companion object {
@@ -73,12 +60,12 @@ class ExerciseLevelFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ExerciseLevelFragment.
+         * @return A new instance of fragment level1ragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ExerciseLevelFragment().apply {
+            level1Fragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

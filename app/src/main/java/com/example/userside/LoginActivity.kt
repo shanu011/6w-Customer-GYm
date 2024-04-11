@@ -11,6 +11,7 @@ import com.example.userside.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
     var auth = Firebase.auth
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+/.+[a-z]+"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
