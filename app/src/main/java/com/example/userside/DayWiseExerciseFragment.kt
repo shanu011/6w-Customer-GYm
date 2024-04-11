@@ -30,19 +30,19 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
     lateinit var dayAdapter : DayAdapter
     var dayModel = DayModel()
     var dayList = ArrayList<DayModel>()
-    private var difficultyLevel: Int = 1
-    private var weightLossORGain: Int = 1
-    var i = 0
+    private var difficultyLevel: Int = 0
+    private var weightLossORGain: Int = 0
+    var exerciseType : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
         arguments?.let {
-            difficultyLevel = arguments?.getInt("difficulitylevel", 1) ?: 1
-            weightLossORGain = it.getInt("weightLossOrGain",1)
-            println("Check the Level: $difficultyLevel ")
-            println("weightLossORGain $weightLossORGain ")
+            difficultyLevel =  it.getInt("level")
+            weightLossORGain = it.getInt("weightGainORLoss")
+            exerciseType = it.getInt("exerciseType")
+            println("DifficultLevel: $difficultyLevel,  weightGainORLoss: $weightLossORGain, exerciseType :$exerciseType ")
         }
        // dayList.clear()
 
@@ -123,7 +123,8 @@ class DayWiseExerciseFragment : Fragment(), DayClickInterface {
     override fun onDayClick(dayModel: DayModel) {
         var bundle = Bundle()
         bundle.putInt("level",difficultyLevel)
-        bundle.putInt("position",weightLossORGain)
+        bundle.putInt("weightGainORLoss",weightLossORGain)
+        bundle.putInt("exerciseType",exerciseType)
         bundle.putString("dayModel",dayModel.id)
         mainActivity.navController.navigate(R.id.exerciseFragment,bundle)
     }

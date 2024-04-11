@@ -1,5 +1,6 @@
 package com.example.userside
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity() {
                 dialog.setMessage("Do You Want To Logout")
                 dialog.setPositiveButton("Yes") { _, _ ->
                     auth.signOut()
-
+                    startActivity(Intent(this,LoginActivity::class.java))
+                    this.finish()
                 }
                 dialog.setNegativeButton("No") { _, _ ->
 

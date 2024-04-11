@@ -36,16 +36,17 @@ class ExerciseFragment : Fragment(), ClickInterface {
     lateinit var mainActivity: MainActivity
     var difficultyLevel  = 0
     var weightLossORGain : Int = 0
+    var exerciseType : Int =0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = activity as MainActivity
         arguments?.let {
             difficultyLevel = it.getInt("level")
-            weightLossORGain = it.getInt("position")
-
+            weightLossORGain = it.getInt("weightGainORLoss")
+            exerciseType = it.getInt("exerciseType")
             dayId = it.getString("dayModel").toString()
-            println("Level: $difficultyLevel")
+            println("difficultyLevel: $difficultyLevel,weightLossORGain $weightLossORGain, exerciseType: $exerciseType ")
             println("DayModelId: ${dayId}")
             println("weightLossORGain: ${weightLossORGain}")
         }
@@ -61,6 +62,7 @@ class ExerciseFragment : Fragment(), ClickInterface {
         db.collection("exercise").whereEqualTo("dayId",dayId)
             .whereEqualTo("difficultLevel",difficultyLevel)
             .whereEqualTo("weigthGainOrLoss",weightLossORGain)
+            .whereEqualTo("exerciseType",exerciseType)
             .addSnapshotListener { value, error ->
                 if(error!= null){
                     println("Error: ${error.message}")
@@ -141,7 +143,11 @@ class ExerciseFragment : Fragment(), ClickInterface {
                     Toast.makeText(mainActivity,"Liked",Toast.LENGTH_SHORT).show()
                 }
         }else{
-            Toast.makeText(mainActivity,"All Ready Liked",Toast.LENGTH_SHORT).show()
+            exerciseModel.likeId = ""
+            db.collection("exercise").document(exerciseModel.id.toString()).update("likeId",exerciseModel.likeId).addOnCompleteListener {
+                Toast.makeText(mainActivity,"UnLike",Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 }

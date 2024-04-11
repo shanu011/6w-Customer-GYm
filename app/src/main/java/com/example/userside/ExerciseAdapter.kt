@@ -24,9 +24,8 @@ class ExerciseAdapter(var context: Context,
         val currentitem = categoryList[position]
         holder.tvExerciseName.text = currentitem.exerciseName
         holder.tvDescription.text = currentitem.exerciseDescription
-        var firstImage = currentitem.imageList?.get(0)
         Glide.with(context)
-            .load(firstImage).placeholder(R.mipmap.ic_launcher)
+            .load(currentitem.image).placeholder(R.mipmap.ic_launcher)
             .error(R.mipmap.ic_launcher)
             .into(holder.ivExerciseImage)
 

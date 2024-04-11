@@ -46,24 +46,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:maxLength="6"
             android:background="@drawable/round_corner"
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="@dimen/_10sp"
             android:hint="@string/enter_password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:maxLength="6"
             android:padding="@dimen/_13sp"
-            android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/tvForget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:layout_gravity="end"
-            android:text="Forget Password ?"/>
+            android:textSize="20dp" />
 
 
         <Button
@@ -72,16 +64,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15dp"
             android:padding="@dimen/_10sp"
-            android:text="Login"
+            android:text="Sign Up"
             android:textSize="20sp" />
         <TextView
-            android:id="@+id/tvAccount"
+            android:id="@+id/alleradyAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:text="You don't have an account ?"/>
+            android:text="You Have an account ?"/>
     </LinearLayout>
     </ScrollView>
 </RelativeLayout>

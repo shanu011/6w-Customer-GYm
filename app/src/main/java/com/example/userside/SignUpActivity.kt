@@ -7,55 +7,40 @@ import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.example.userside.databinding.ActivityLoginBinding
+import com.example.userside.databinding.ActivitySignUpBinding
 
-class LoginActivity : AppCompatActivity() {
-    lateinit var binding : ActivityLoginBinding
+class SignUpActivity : AppCompatActivity() {
+    lateinit var binding : ActivitySignUpBinding
     var auth = Firebase.auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_login)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tvAccount.setOnClickListener {
-            var intent = Intent(this,SignUpActivity::class.java)
+        binding.alleradyAccount.setOnClickListener {
+            var intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
-
         binding.btnLogin.setOnClickListener {
             if(binding.etEmail.text.toString().isEmpty()){
                 binding.etEmail.error = "Enter Your Email"
-            }else if(!isEmailValid(binding.etEmail.text.toString())){
+            }else  if(!isEmailValid(binding.etEmail.text.toString())){
                 binding.etEmail.error = "Enter Valid Email"
             }else if(binding.etPassword.text.toString().isEmpty()){
                 binding.etPassword.error = "Enter Your Password"
             }else{
-                auth.signInWithEmailAndPassword(binding.etEmail.text.toString(),binding.etPassword.text.toString()).addOnCompleteListener {
+                auth.createUserWithEmailAndPassword(binding.etEmail.text.toString(),binding.etPassword.text.toString()).addOnCompleteListener {
                     if(it.isSuccessful){
                         var intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         this.finish()
-                        Toast.makeText(this,"Login Successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"SignUp Successfully", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(this,"Your Credential is wrong", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Internet Issue", Toast.LENGTH_SHORT).show()
                     }
                 }.addOnFailureListener {
                     println("Error: ${it.message}")
-                }
-            }
-        }
-        binding.tvForget.setOnClickListener {
-            if(binding.etEmail.text.toString().isEmpty()){
-                binding.etEmail.error = "Enter Your Email"
-            }
-            else if(!isEmailValid(binding.etEmail.text.toString())){
-                binding.etEmail.error = "Enter Valid Email"
-            } else{
-                auth.sendPasswordResetEmail(binding.etEmail.text.toString()).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        Toast.makeText(this,"Mail Sent", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this,"NetWork Issue", Toast.LENGTH_SHORT).show()
-                    }
                 }
             }
         }

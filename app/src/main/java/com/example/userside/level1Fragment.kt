@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.userside.databinding.FragmentLevel1Binding
 
@@ -24,12 +25,15 @@ class level1Fragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var level : Int =0
+    var weightGainORLoss : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+           level = it.getInt("level")
+            weightGainORLoss= it.getInt("weightLossOrGain")
+            println("Level: $level, weightGainORLoss: $weightGainORLoss")
         }
     }
 
@@ -39,16 +43,32 @@ class level1Fragment : Fragment() {
     ): View? {
        binding = FragmentLevel1Binding.inflate(layoutInflater)
         binding.btnfull.setOnClickListener{
-            findNavController().navigate(R.id.allExerciseFragment)
+            var bundle = Bundle()
+            bundle.putInt("level",level)
+            bundle.putInt("weightGainORLoss",weightGainORLoss)
+            bundle.putInt("exerciseType",1)
+            findNavController().navigate(R.id.allExerciseFragment,bundle)
         }
         binding.btnarm.setOnClickListener{
-            findNavController().navigate(R.id.allExerciseFragment)
+            var bundle = Bundle()
+            bundle.putInt("level",level)
+            bundle.putInt("weightGainORLoss",weightGainORLoss)
+            bundle.putInt("exerciseType",2)
+            findNavController().navigate(R.id.allExerciseFragment,bundle)
         }
         binding.btnleg.setOnClickListener{
-            findNavController().navigate(R.id.allExerciseFragment)
+            var bundle = Bundle()
+            bundle.putInt("level",level)
+            bundle.putInt("weightGainORLoss",weightGainORLoss)
+            bundle.putInt("exerciseType",3)
+            findNavController().navigate(R.id.allExerciseFragment,bundle)
         }
         binding.btnchest.setOnClickListener{
-            findNavController().navigate(R.id.allExerciseFragment)
+            var bundle = Bundle()
+            bundle.putInt("level",level)
+            bundle.putInt("weightGainORLoss",weightGainORLoss)
+            bundle.putInt("exerciseType",4)
+            findNavController().navigate(R.id.allExerciseFragment,bundle)
         }
         return binding.root
     }
